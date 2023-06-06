@@ -100,6 +100,9 @@ class OnBoardingSlider extends StatefulWidget {
   /// override the function for kip button in the navigator.
   final Function? skipFunctionOverride;
 
+  /// Callback to be executed when the page changes.
+  final ValueChanged<int>? onPageChanged;
+
   OnBoardingSlider({
     required this.totalPage,
     required this.headerBackgroundColor,
@@ -135,6 +138,7 @@ class OnBoardingSlider extends StatefulWidget {
     this.indicatorAbove = false,
     this.indicatorPosition = 90,
     this.skipFunctionOverride,
+    this.onPageChanged,
   });
 
   @override
@@ -233,6 +237,7 @@ class _OnBoardingSliderState extends State<OnBoardingSlider> {
     setState(() {
       _currentPage = page;
     });
+    widget.onPageChanged?.call(_currentPage); // exposing the currentPage
   }
 
   /// Skip to last Slide.
@@ -241,5 +246,6 @@ class _OnBoardingSliderState extends State<OnBoardingSlider> {
     setState(() {
       _currentPage = widget.totalPage - 1;
     });
+    widget.onPageChanged?.call(_currentPage); // exposing the currentPage
   }
 }
